@@ -1,31 +1,28 @@
-import { StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,FlatList } from 'react-native';
+import ProductListItem from '../../components/ProductListItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'expo-router';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+export default function HomeScreen() {
 
-export default function TabOneScreen() {
+  const products=useSelector(state=>state.products.products);
   return (
+    
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+       <FlatList data={products} renderItem={({item,index})=><ProductListItem product={item} index={index}/>}
+      numColumns={2}
+      /> 
+      
     </View>
+ 
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+    backgroundColor:"#ffffff"
+  
+  }
+
 });
